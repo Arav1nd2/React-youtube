@@ -1,0 +1,28 @@
+.duration {
+    margin-top : -25px;
+    text-align: right;
+    margin-right: 5px;
+
+}
+.title {
+    color: black !important;
+    text-align: center;
+    margin-top : 10px;
+}
+
+.cards {
+    border-radius: 0px !important;
+}
+.views {
+    color: rgb(168, 168, 168);
+    margin-left: 10px;
+}
+.channel {
+    color: rgb(161, 161, 161);
+    margin-left: 10px;
+    font-size: 1rem;
+}
+.time {
+    color: rgb(179, 179, 179);
+    margin-left: 10px;
+}
