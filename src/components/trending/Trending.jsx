@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Container,Card,Row,Col,Badge } from 'reactstrap';
 import './trending.css';
 import * as moment from 'moment';
+import {Link} from 'react-router-dom';
 
 
 class Trending extends Component {
@@ -28,7 +29,7 @@ class Trending extends Component {
         return a;
 
     }
-    
+
     componentDidMount() {
         axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&regionCode=IN&key=AIzaSyC08_3UH9FAAQAxREzc4-bKQVQ_IXHuNLc"
             ).then(res => {
@@ -38,8 +39,7 @@ class Trending extends Component {
             })
     }
     render() {
-        console.log(this.state.trending);
-        let trending = this.state.trending.map((video) => {
+            let trending = this.state.trending.map((video) => {
             let title = video.snippet.title.substr(0,40) + "...";
             let views = video.statistics.viewCount;
             views = views > 1000000 ? parseInt(views/1000000) + "M views" : (views > 1000 ? parseInt(views/1000) + "K views" : views);
@@ -48,8 +48,10 @@ class Trending extends Component {
             this.convert_time(video.contentDetails.duration).forEach(time => {
                 duration = duration !== "" ? duration + ':' + time : (duration + time); 
             });
+            let link = "/" + video.id;
             return (
                 <Col md = {4} key = {video.id}>
+                    <Link to = {link} className = "links" >
                     <Card className = "cards">
                         <img src = {video.snippet.thumbnails.medium.url} alt = ""  />
                         <span className="duration"><Badge color = "secondary">{duration}</Badge></span>
@@ -63,6 +65,7 @@ class Trending extends Component {
                         </div>
                     </Card>
                     <br/>
+                    </Link>
                 </Col>
             );
         })

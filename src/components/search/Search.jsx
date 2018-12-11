@@ -3,24 +3,14 @@ import { Input } from 'reactstrap';
 import './search.css';
 
 class Search extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            search : ''
-        };
-        this.handleChange = (e) => {
-            this.setState({
-                search : e.target.value
-            });
-        }
-    }    
+    
     render() {
         return (
             <div>
                 <Input 
                     type = "text" 
-                    value = {this.state.search}
-                    onChange = {this.handleChange} 
+                    value = {this.props.val}
+                    onChange = {this.props.handleChange} 
                     className = "search "
                     placeholder = "Search" />
                     <br/>

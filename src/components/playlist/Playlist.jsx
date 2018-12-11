@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import {Container} from 'reactstrap';
 
 class Playlist extends Component {
     render() {
         return (
             <div>
-              <h4>Your Playlist</h4>  
+                <Container>
+                    <h4>Your Playlist</h4>  
+                </Container>
             </div>
         );
     }

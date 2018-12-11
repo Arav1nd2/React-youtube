@@ -1,0 +1,17 @@
+.thumb {
+    width: 320px;
+    height: 180px;
+}
+
+.heading {
+    margin-left : 10px;
+    color: black !important;
+}
+
+.description {
+    color: rgb(189, 189, 189) !important;
+}
+.links:hover {
+    text-decoration: none;
+
+}

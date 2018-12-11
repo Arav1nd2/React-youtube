@@ -1,0 +1,19 @@
+.title {
+    margin-left: 10px;
+    text-align: left !important;
+}
+
+.view {
+    margin-left: 10px;
+    color: rgb(167, 167, 167);
+}
+
+.description {
+    margin-left: 10px;
+    width : 70%;
+    font-weight: 170;
+}
+
+.playlist {
+    
+}
