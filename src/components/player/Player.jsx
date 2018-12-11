@@ -5,6 +5,7 @@ import logo from '../../assets/logo.jpg';
 import axios from 'axios';
 import Linkify from 'react-linkify';
 import './player.css';
+import data from '../../data/collection';
 
 class Player extends Component {
     constructor(props) {
@@ -15,6 +16,12 @@ class Player extends Component {
         }
         this.onReady = (e) => {
             e.target.pauseVideo();
+        }
+        this.handleClick = () => {
+            if(this.state.id) {
+                data.push(this.state.id);
+                console.log(data);
+            }
         }
     }
     componentDidMount() {
@@ -46,7 +53,7 @@ class Player extends Component {
                             {views} views
                         </Col>
                         <span className="col">
-                            <Button color = "danger">Add to Collections</Button>
+                            <Button color = "danger" onClick = {this.handleClick}>Add to Collections</Button>
                         </span>
                     </span>
                     <hr/>
