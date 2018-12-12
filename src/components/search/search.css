@@ -1,5 +1,16 @@
 .search {
     width : 80% !important;
-    margin: auto;
+    border: none !important;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 70%;
+    color: rgb(143, 143, 143);
+}
+
+.search:focus {
+    outline: 0;
+}
+
+.icon {
+    color: gray;
+    padding-right: 20px;
 }

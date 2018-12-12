@@ -1,0 +1,22 @@
+ul {
+    
+    margin-top : 100px !important;
+}
+
+ul , li {
+    padding: 15px 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    text-align: center;
+    list-style-type: none;
+    font-weight: 700;
+    color: rgb(150, 148, 148);
+}
+li:hover {
+    background-color : #8d929c;
+    color: black;
+}
+
+.icons {
+    margin: 10px;
+}

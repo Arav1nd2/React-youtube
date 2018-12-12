@@ -72,12 +72,11 @@ class Trending extends Component {
 
         return (
             <div>
-                <Container>
+                    <br/>
                     <h4>Today's Trending Videos</h4>  
                     <Row>
                         {trending}
                     </Row>
-                </Container>
             </div>
         );
     }

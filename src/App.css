@@ -1,25 +1,38 @@
-
-.bg {
-    /*background-color: rgb(43, 43, 43);
-    */
+html ,body {
+    background: #d7c9c6; /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #d7c9c6 0%, #36445e 98%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #d7c9c6 0%,#36445e 98%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #d7c9c6 0%,#36445e 98%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d7c9c6', endColorstr='#36445e',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+        /* Full height */
+        height: 100vmax; 
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin : 0px !important;
     
-    /* Full height */
-    height: 100vw; 
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    /*color: white;
-*/
 }
 
-.navBar {
-    background-color: black;
-    color: rgb(241, 0, 0);
-    font-size: 150%;
+.box {
+    padding: 0px;
+    width : 90%;
+    margin : 50px;
+    background-color: #fff;
 }
 
-.brand {
-    border-radius: 50%;
+.main{
+    margin: 0px !important;
+}
+
+.sidebar {
+    background-color: #49505e;
+    padding-left: 0px !important;
+    padding-right: 0px !important; 
+}
+
+.centerPart {
+    background-color: #2e323b;
+    color: #fff;
 }
