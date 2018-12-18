@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Youtube from 'react-youtube';
-import {Navbar,Button,Col} from 'reactstrap';
-import logo from '../../assets/logo.jpg';
+import {Button,Col} from 'reactstrap';
 import axios from 'axios';
 import Linkify from 'react-linkify';
 import './player.css';
 import data from '../../data/collection';
+import DonutChart from "react-svg-donut-chart"
+
 
 class Player extends Component {
     constructor(props) {
@@ -38,19 +39,34 @@ class Player extends Component {
     render() {
         const opts = {
             height : '400',
-            width : '100%',
+            width : '80%',
             playerVars : {
                 autoplay: 1
             }
         };
+        console.log(this.state.details);
+        let background,chart;
         let data = this.state.details ? this.state.details.items.map((data) => {
+            background = data.snippet.thumbnails.maxres.url;
+            chart = [{
+                value : data.statistics.likeCount,
+                stroke : "green"
+            },
+            {
+                value : data.statistics.dislikeCount,
+                stroke : "red"
+            }    
+        ];
             let views = data.statistics.viewCount > 1000000 ? (parseInt(data.statistics.viewCount/1000000) + "," + parseInt((data.statistics.viewCount%1000000)/1000) + "," + parseInt(data.statistics.viewCount%1000)) : (parseInt((data.statistics.viewCount)/1000) + "," + parseInt(data.statistics.viewCount%1000));  
             return (
-                <div>
+                <div key = {views}>
                     <h2 className = "title" >{data.snippet.localized.title}</h2>
                     <span className="view">
                         <Col>
                             {views} views
+                        </Col>
+                        <Col>
+                            <DonutChart data = {chart} className = "likeChart"/>
                         </Col>
                         <span className="col">
                             <Button color = "danger" onClick = {this.handleClick}>Add to Collections</Button>
@@ -68,13 +84,9 @@ class Player extends Component {
         }) : <h3>Loading....</h3>;
         return (
             <div>
-                <Navbar className = "navBar" >
-                  <span>
-                 <img src = {logo} alt = "..." width = "40px" className = "brand"/>
-               &nbsp;<b>Youtube Redefined!</b>
-                 </span>
-                </Navbar>
-                <Youtube videoId = {this.state.id} opts = {opts} onReady = {this.onReady} />
+                <br/>
+                <img src= {background} alt="" width = "100%" height = "450px"  className = "backgroundImage"/>
+                <Youtube videoId = {this.state.id} opts = {opts} onReady = {this.onReady} className = "videoPlayer"/>
                 {data}
             </div>
         );

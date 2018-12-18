@@ -10,11 +10,26 @@ ul , li {
     text-align: center;
     list-style-type: none;
     font-weight: 700;
-    color: rgb(150, 148, 148);
+    color: rgb(150, 148, 148) !important;
+    text-decoration: none !important;
 }
 li:hover {
     background-color : #8d929c;
+    color: black !important;
+    text-decoration: none;
+}
+
+li ,a {
     color: black;
+}
+
+.Links {
+    color: rgb(150, 148, 148) !important;
+    text-decoration: none !important;
+}
+.Links:hover {
+    color: black !important;
+    text-decoration: none;
 }
 
 .icons {

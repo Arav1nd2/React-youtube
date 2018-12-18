@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import {Container,Card,Col,Badge,Row} from 'reactstrap';
+import {Container,Card,Badge} from 'reactstrap';
 import data from '../../data/collection';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import * as moment from 'moment';
+import Slider from 'react-slick';
+
 
 
 class Playlist extends Component {
@@ -35,7 +37,6 @@ class Playlist extends Component {
         data.forEach(id => {
             axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id="+id+"&key=AIzaSyC08_3UH9FAAQAxREzc4-bKQVQ_IXHuNLc")
             .then(res => {
-                console.log(res.data.items[0]);
                  col.push(res.data.items[0]);
             }).then(() => {
                 this.setState({
@@ -44,8 +45,44 @@ class Playlist extends Component {
             })
         });
     }
-    render() {
-        console.log(this.state.collection);
+    render() {            
+        const setting = {
+        className : "center",
+        centerMode : true,
+        infinite : true,
+        centrePadding : "70px",
+        slidesToShow : 2,
+        speed : 500,
+        autoplay : true,
+        autoplaySpeed : 4000,
+        responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                infinite: true,
+                dots: true
+              }
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                initialSlide: 1
+              }
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+              }
+            }
+          ]
+    };
+
         let collection = this.state.collection.length !== 0 ? this.state.collection.map((video) => {
             let title = video.snippet.title.substr(0,40) + "...";
             let views = video.statistics.viewCount;
@@ -57,7 +94,7 @@ class Playlist extends Component {
             });
             let link = "/" + video.id;
             return (
-                <Col md = {4} key = {video.id}>
+                <div key = {video.id}>
                     <Link to = {link} className = "links" >
                     <Card className = "cards">
                         <img src = {video.snippet.thumbnails.medium.url} alt = ""  />
@@ -73,16 +110,17 @@ class Playlist extends Component {
                     </Card>
                     <br/>
                     </Link>
-                </Col>
+                </div>
             );
         }) : "";
         return (
-            <div>
+            <div className = "trends">
                 <Container>
+                    <br/>
                     <h4>Your Collections</h4>  
-                    <Row>
+                    <Slider {...setting}>
                         {collection}
-                    </Row>
+                    </Slider>
                 </Container>
             </div>
         );

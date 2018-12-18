@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Container,Card,Row,Col,Badge } from 'reactstrap';
+import { Card,Badge } from 'reactstrap';
 import './trending.css';
 import * as moment from 'moment';
 import {Link} from 'react-router-dom';
-
+import Slider from 'react-slick';
 
 class Trending extends Component {
     constructor(props) {
@@ -39,6 +39,42 @@ class Trending extends Component {
             })
     }
     render() {
+            const setting = {
+                className : "center",
+                centerMode : true,
+                infinite : true,
+                centrePadding : "70px",
+                slidesToShow : 2,
+                speed : 500,
+                autoplay : true,
+                autoplaySpeed : 4000,
+                responsive: [
+                    {
+                      breakpoint: 1024,
+                      settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        infinite: true,
+                        dots: true
+                      }
+                    },
+                    {
+                      breakpoint: 600,
+                      settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        initialSlide: 1
+                      }
+                    },
+                    {
+                      breakpoint: 480,
+                      settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                      }
+                    }
+                  ]
+            };
             let trending = this.state.trending.map((video) => {
             let title = video.snippet.title.substr(0,40) + "...";
             let views = video.statistics.viewCount;
@@ -48,9 +84,9 @@ class Trending extends Component {
             this.convert_time(video.contentDetails.duration).forEach(time => {
                 duration = duration !== "" ? duration + ':' + time : (duration + time); 
             });
-            let link = "/" + video.id;
+            let link = "/play/" + video.id;
             return (
-                <Col md = {4} key = {video.id}>
+                    <div key = {video.id}>
                     <Link to = {link} className = "links" >
                     <Card className = "cards">
                         <img src = {video.snippet.thumbnails.medium.url} alt = ""  />
@@ -63,20 +99,21 @@ class Trending extends Component {
                             <span className="views">{views}</span>
                             <span className="time">{time}</span>
                         </div>
+                        <br/>
                     </Card>
-                    <br/>
                     </Link>
-                </Col>
+                    </div>
             );
         })
 
         return (
-            <div>
+            <div className = "trends">
                     <br/>
                     <h4>Today's Trending Videos</h4>  
-                    <Row>
+                    <Slider {...setting}>
                         {trending}
-                    </Row>
+                    </Slider>
+                    <br/><br/>
             </div>
         );
     }
