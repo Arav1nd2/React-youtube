@@ -5,6 +5,9 @@ import './trending.css';
 import * as moment from 'moment';
 import {Link} from 'react-router-dom';
 import Slider from 'react-slick';
+import Loader from 'react-loader-spinner'
+
+
 
 class Trending extends Component {
     constructor(props) {
@@ -29,10 +32,14 @@ class Trending extends Component {
         return a;
 
     }
-
+    sleeper(ms) {
+        return function(x) {
+          return new Promise(resolve => setTimeout(() => resolve(x), ms));
+        };
+      }
     componentDidMount() {
         axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&regionCode=IN&key=AIzaSyC08_3UH9FAAQAxREzc4-bKQVQ_IXHuNLc"
-            ).then(res => {
+            ).then(this.sleeper(1000)).then(res => {
                 this.setState({
                     trending : res.data.items
                 });
@@ -75,7 +82,8 @@ class Trending extends Component {
                     }
                   ]
             };
-            let trending = this.state.trending.map((video) => {
+
+            let trending =  this.state.trending.map((video) => {
             let title = video.snippet.title.substr(0,40) + "...";
             let views = video.statistics.viewCount;
             views = views > 1000000 ? parseInt(views/1000000) + "M views" : (views > 1000 ? parseInt(views/1000) + "K views" : views);
@@ -104,15 +112,22 @@ class Trending extends Component {
                     </Link>
                     </div>
             );
-        })
+        });
 
         return (
             <div className = "trends">
                     <br/>
                     <h4>Today's Trending Videos</h4>  
-                    <Slider {...setting}>
-                        {trending}
-                    </Slider>
+                    
+                        {trending.length === 0 ?         
+                            <div className="spinners">
+                                 <Loader type = "Bars" color = "black" width = "150" height = "80" /> 
+                            </div> :
+                            <Slider {...setting}>
+                                {trending}
+                            </Slider>
+                        }
+                    
                     <br/><br/>
             </div>
         );

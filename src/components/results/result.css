@@ -5,7 +5,7 @@
 
 .heading {
     margin-left : 10px;
-    color: black !important;
+    color: cornsilk;
 }
 
 .description {
@@ -14,4 +14,19 @@
 .links:hover {
     text-decoration: none;
 
+}
+.resultsPage {
+    max-height: 490px;
+    overflow-y: auto;
+}
+.Rescards {
+    border-radius: 0px !important;
+    margin : 10px;
+    background-color: black !important;
+}
+.Rescards:hover {
+    transition: all .1s ease-in-out;
+    cursor: pointer;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

@@ -1,6 +1,7 @@
 ul {
     
     margin-top : 100px !important;
+    margin-bottom : 100px !important;
 }
 
 ul , li {
@@ -34,4 +35,17 @@ li ,a {
 
 .icons {
     margin: 10px;
+}
+
+.closeButton {
+    position: absolute;
+    right : 10px;
+    top : 3px;
+    font-size: 1.5rem;
+}
+
+@media only screen and (min-width : 768px) {
+    .closeButton {
+        display: none;
+    }
 }

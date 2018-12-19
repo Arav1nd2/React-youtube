@@ -14,17 +14,29 @@
     font-weight: 170;
 }
 
-.videoPlayer {
-    display: inline !important;
-    position: absolute;
-    left : 10%;
-    top : 5%;
+.playerPage {
+    padding-right: 10px;
+    max-height: 490px;
+    overflow-y: auto;
+    margin-right: 0px;
 }
-
-.backgroundImage {
-    opacity: 0.2;
-}
-
-.likeChart {
-    background-color: #ffffff !important;
-}
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(199, 1, 1);
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b30000; 
+  }

@@ -32,17 +32,17 @@ class Results extends Component {
     }
     
     render() {
-        console.log(this.state.results);
+        console.log(this.props);
         let i =0;
         let displayData = this.state.results.length === 0 ? "" : 
             this.state.results.map( video => {
                 i++;
-                var path = "/"+ video.id.videoId;
+                var path = "/play/"+ video.id.videoId;
                 let time = moment(video.snippet.publishedAt).startOf('day').fromNow();
                 return (
                     <div key = {i}>
                         <Link to = {path} className = "links">
-                        <Card className = "cards">
+                        <Card className = "Rescards">
                             <Media>
                                 <Media left>
                                     <Media object src = {video.snippet.thumbnails.medium.url} className = "thumb"/>
@@ -63,8 +63,9 @@ class Results extends Component {
                 );
             } );
         return (
-            <div>
+            <div className = "resultsPage">
                 <Container>
+                    <br/>
                     <h6>Matching results : (25)</h6>
                     {displayData}      
                 </Container>

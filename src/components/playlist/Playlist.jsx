@@ -5,6 +5,8 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 import * as moment from 'moment';
 import Slider from 'react-slick';
+import Loader from 'react-loader-spinner'
+
 
 
 
@@ -31,12 +33,17 @@ class Playlist extends Component {
         return a;
 
     }
+    sleeper(ms) {
+        return function(x) {
+          return new Promise(resolve => setTimeout(() => resolve(x), ms));
+        };
+      }
     
     componentDidMount() {
         let col = [];
         data.forEach(id => {
             axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id="+id+"&key=AIzaSyC08_3UH9FAAQAxREzc4-bKQVQ_IXHuNLc")
-            .then(res => {
+            .then(this.sleeper(1000)).then(res => {
                  col.push(res.data.items[0]);
             }).then(() => {
                 this.setState({
@@ -83,7 +90,7 @@ class Playlist extends Component {
           ]
     };
 
-        let collection = this.state.collection.length !== 0 ? this.state.collection.map((video) => {
+        let collection = this.state.collection.map((video) => {
             let title = video.snippet.title.substr(0,40) + "...";
             let views = video.statistics.viewCount;
             views = views > 1000000 ? parseInt(views/1000000) + "M views" : (views > 1000 ? parseInt(views/1000) + "K views" : views);
@@ -112,15 +119,20 @@ class Playlist extends Component {
                     </Link>
                 </div>
             );
-        }) : "";
+        });
         return (
             <div className = "trends">
                 <Container>
                     <br/>
                     <h4>Your Collections</h4>  
-                    <Slider {...setting}>
-                        {collection}
-                    </Slider>
+                    {collection.length === 0 ?
+                        <div className="spinners">
+                            <Loader type = "Bars" color = "black" width = "150" height = "80" /> 
+                        </div> :
+                        <Slider {...setting}>
+                             {collection}
+                        </Slider>
+                    }
                 </Container>
             </div>
         );

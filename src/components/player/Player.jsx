@@ -5,7 +5,8 @@ import axios from 'axios';
 import Linkify from 'react-linkify';
 import './player.css';
 import data from '../../data/collection';
-import DonutChart from "react-svg-donut-chart"
+import Loader from 'react-loader-spinner'
+
 
 
 class Player extends Component {
@@ -25,9 +26,14 @@ class Player extends Component {
             }
         }
     }
+    sleeper(ms) {
+        return function(x) {
+          return new Promise(resolve => setTimeout(() => resolve(x), ms));
+        };
+      }
     componentDidMount() {
         axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id="+ this.props.match.params.id + "&key=AIzaSyC08_3UH9FAAQAxREzc4-bKQVQ_IXHuNLc")
-        .then((res) => {
+        .then(this.sleeper(1000)).then((res) => {
             this.setState({
                 details : res.data
             });
@@ -39,24 +45,14 @@ class Player extends Component {
     render() {
         const opts = {
             height : '400',
-            width : '80%',
+            width : '100%',
             playerVars : {
                 autoplay: 1
             }
         };
-        console.log(this.state.details);
-        let background,chart;
-        let data = this.state.details ? this.state.details.items.map((data) => {
-            background = data.snippet.thumbnails.maxres.url;
-            chart = [{
-                value : data.statistics.likeCount,
-                stroke : "green"
-            },
-            {
-                value : data.statistics.dislikeCount,
-                stroke : "red"
-            }    
-        ];
+        console.log(this.props);
+        let data = this.state.details ?  this.state.details.items.map((data) => {
+
             let views = data.statistics.viewCount > 1000000 ? (parseInt(data.statistics.viewCount/1000000) + "," + parseInt((data.statistics.viewCount%1000000)/1000) + "," + parseInt(data.statistics.viewCount%1000)) : (parseInt((data.statistics.viewCount)/1000) + "," + parseInt(data.statistics.viewCount%1000));  
             return (
                 <div key = {views}>
@@ -64,9 +60,6 @@ class Player extends Component {
                     <span className="view">
                         <Col>
                             {views} views
-                        </Col>
-                        <Col>
-                            <DonutChart data = {chart} className = "likeChart"/>
                         </Col>
                         <span className="col">
                             <Button color = "danger" onClick = {this.handleClick}>Add to Collections</Button>
@@ -81,13 +74,20 @@ class Player extends Component {
                     </h6>
                 </div>
             );
-        }) : <h3>Loading....</h3>;
+        }) : "";
         return (
-            <div>
-                <br/>
-                <img src= {background} alt="" width = "100%" height = "450px"  className = "backgroundImage"/>
-                <Youtube videoId = {this.state.id} opts = {opts} onReady = {this.onReady} className = "videoPlayer"/>
-                {data}
+            <div className = "playerPage">
+                {
+                    this.state.details ? 
+                        <div>
+                            <br/>
+                            <Youtube videoId = {this.state.id} opts = {opts} onReady = {this.onReady} />
+                            {data}
+                        </div> :
+                        <div className = "spinners">
+                            <Loader type = "Bars" color = "black" width = "150" height = "80" /> 
+                        </div>
+                }
             </div>
         );
     }

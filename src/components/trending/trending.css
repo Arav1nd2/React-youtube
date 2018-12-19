@@ -8,6 +8,11 @@
 
 }
 
+.spinners {
+    margin : 10% 38%;
+
+}
+
 .duration {
     margin-top : -25px;
     text-align: right;
@@ -15,7 +20,7 @@
 
 }
 .title {
-    color: black !important;
+    color: #fff !important;
     text-align: center;
     margin-top : 10px;
 }
@@ -23,7 +28,8 @@
 .cards {
     border-radius: 0px !important;
     margin : 10px;
-    background-color: #d7c9c6 !important;
+    background-color: black !important;
+    height: 300px;
 }
 .cards:hover {
     transition: all .1s ease-in-out;

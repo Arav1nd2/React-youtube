@@ -23,6 +23,11 @@ class App extends Component {
         search : e.target.value
       });
     }
+    this.handleClick = () => {
+      this.setState({
+        search : ""
+      });
+    }
   }
   
   render() {
@@ -32,31 +37,25 @@ class App extends Component {
     };
     return (
       <BrowserRouter>  
-      <div className = "bg">
       <div className = "box">
         <Nav data = {data}/>
         <Row className = "main">
         <Col md = {2} className = "sidebar">
-          <Sidebar />
+          <Sidebar handler = {this.handleClick}/>
         </Col>
-        <Col md = {9} className = "centerPart">
-              {this.state.search === "" ?             
+        <Col md = {9} className = "centerPart">            
                   <div>
-                      <Route exact path = '/' component = {Trending} />
-                      <Route exact path = '/playlist' component = {Playlist} />
-                      <Route exacts path = '/play/:id' component = {Player} />
-                      <Route exact path = "/about" component = {About} />
-                  </div> : 
-                  <Results val = {this.state.search}/>
-              }
+                      <Route exact path = '/' render = {(props) => this.state.search === "" ? <Trending/> : <Results {...props} val = {this.state.search} />} />
+                      <Route exact path = '/playlist' render = {(props) => this.state.search === "" ? <Playlist/> : <Results {...props} val = {this.state.search} />}/>
+                      <Route exact path = '/play/:id' render = {(props) => this.state.search === "" ? <Player {...props}/> : <Results {...props} val = {this.state.search}/>} />
+                      <Route exact path = "/about" render = {(props) => this.state.search === "" ? <About/> : <Results {...props} val = {this.state.search}/>}/>
+                  </div>
         </Col>
         <Col md = {1} className = "sidebar">
         
         </Col>
-        </Row>
-              
+        </Row> 
         </div>
-      </div>
       </BrowserRouter>  
     );
   }

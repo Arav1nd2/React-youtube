@@ -12,6 +12,7 @@ class Nav extends Component {
         <div>
             <Navbar className = "navBar" >
                 <Col md = {2} className = "logoArea">
+                    <span className = "fa fa-bars hamBurger"></span>
                     <span>
                         <img src = {logo} alt = "..." width = "80px" className = "brand"/>
                     </span>
