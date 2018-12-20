@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import * as moment from 'moment';
 import Slider from 'react-slick';
 import Loader from 'react-loader-spinner'
+import MediaQuery from 'react-responsive';
 
 
 
@@ -129,9 +130,16 @@ class Playlist extends Component {
                         <div className="spinners">
                             <Loader type = "Bars" color = "black" width = "150" height = "80" /> 
                         </div> :
-                        <Slider {...setting}>
-                             {collection}
-                        </Slider>
+                        <div>
+                            <MediaQuery minDeviceWidth = {768}>
+                            <Slider {...setting}>
+                                {collection}
+                            </Slider>
+                            </MediaQuery>
+                            <MediaQuery maxDeviceWidth = {767}>
+                                {collection}
+                            </MediaQuery>
+                        </div>
                     }
                 </Container>
             </div>

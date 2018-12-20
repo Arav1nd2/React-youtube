@@ -19,14 +19,7 @@
     margin: 20px auto;
 }
 
-.logout {
-    width: 100% !important;
-    background-color: rgb(199, 1, 1);
-    height: 50px;
-    text-align: center;
-    font-size: 1.5em;
-    color: black; 
-}
+
 
 .hamBurger {
     position: absolute;
@@ -36,6 +29,19 @@
 
 @media only screen and (min-width : 768px) {
     .hamBurger {
+        display: none;
+    }
+    .logout {
+        width: 100% !important;
+        background-color: rgb(199, 1, 1);
+        height: 50px;
+        text-align: center;
+        font-size: 1.5em;
+        color: black; 
+    }
+}
+@media only screen and (max-width : 768px) {
+    .logout {
         display: none;
     }
 }

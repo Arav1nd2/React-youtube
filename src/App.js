@@ -16,7 +16,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      search : ""
+      search : "",
+      sidebar : false
     }
     this.handleChange = (e) => {
       this.setState({
@@ -26,6 +27,11 @@ class App extends Component {
     this.handleClick = () => {
       this.setState({
         search : ""
+      });
+    }
+    this.handleHamberburger = () => { 
+      this.setState({
+        sidebar : !this.state.sidebar
       });
     }
   }
@@ -38,21 +44,21 @@ class App extends Component {
     return (
       <BrowserRouter>  
       <div className = "box">
-        <Nav data = {data}/>
+        <Nav data = {data} handleClick = {this.handleHamberburger}/>
         <Row className = "main">
         <Col md = {2} className = "sidebar">
-          <Sidebar handler = {this.handleClick}/>
+          <Sidebar handler = {this.handleClick} status = {this.state.sidebar} handleClose = {this.handleHamberburger}/>
         </Col>
         <Col md = {9} className = "centerPart">            
                   <div>
                       <Route exact path = '/' render = {(props) => this.state.search === "" ? <Trending/> : <Results {...props} val = {this.state.search} />} />
                       <Route exact path = '/playlist' render = {(props) => this.state.search === "" ? <Playlist/> : <Results {...props} val = {this.state.search} />}/>
-                      <Route exact path = '/play/:id' render = {(props) => this.state.search === "" ? <Player {...props}/> : <Results {...props} val = {this.state.search}/>} />
+                      <Route exact path = '/play/:id' render = {(props) =>  <Player {...props}/>  }/>
                       <Route exact path = "/about" render = {(props) => this.state.search === "" ? <About/> : <Results {...props} val = {this.state.search}/>}/>
                   </div>
         </Col>
         <Col md = {1} className = "sidebar">
-        
+
         </Col>
         </Row> 
         </div>

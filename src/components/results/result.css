@@ -1,16 +1,7 @@
-.thumb {
-    width: 320px;
-    height: 180px;
-}
 
-.heading {
-    margin-left : 10px;
-    color: cornsilk;
-}
 
-.description {
-    color: rgb(189, 189, 189) !important;
-}
+
+
 .links:hover {
     text-decoration: none;
 
@@ -19,14 +10,103 @@
     max-height: 490px;
     overflow-y: auto;
 }
-.Rescards {
-    border-radius: 0px !important;
-    margin : 10px;
-    background-color: black !important;
-}
+
 .Rescards:hover {
     transition: all .1s ease-in-out;
     cursor: pointer;
     transform: scale(1.05);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+@media only screen and (max-width: 600px) {
+    .thumb {
+        width : 180px;
+        height: 100px;
+    }
+    .Rescards {
+        border-radius: 0px !important;
+        margin : 10px;
+        background-color: black !important;
+        width : 70px;
+        height: 100px;
+    }
+    .heading {
+        font-size: 0.5rem;
+        margin-left : 10px;
+        color: white;
+    }
+    .Stime {
+        color: rgb(179, 179, 179);
+        margin-left: 10px;
+        font-size: 0.7rem;
+    }
+    .channel {
+        color: rgb(161, 161, 161);
+        margin-left: 10px;
+        font-size: 0.7rem;
+    }
+    .medBody {
+        width : 100px !important;
+    }
+    
+}
+
+@media only screen and (max-width: 1024px) {
+    .thumb {
+        width: 180px;
+        height: 120px;
+    }
+    .Rescards {
+        border-radius: 0px !important;
+        margin : 10px;
+        background-color: black !important;
+        width : 500px;
+        height: 120px;
+    }
+    .heading {
+        font-size: 0.8rem;
+        margin-left : 10px;
+        color: white;
+    }
+    .description {
+        color: rgb(189, 189, 189) !important;
+        font-size: 0.7rem;
+    }
+    .Stime {
+        color: rgb(179, 179, 179);
+        margin-left: 10px;
+        font-size: 0.7rem;
+    }
+    .channel {
+        color: rgb(161, 161, 161);
+        margin-left: 10px;
+        font-size: 0.7rem;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .thumb {
+        width: 320px;
+        height: 180px;
+    }
+    .Rescards {
+        border-radius: 0px !important;
+        margin : 10px;
+        background-color: black !important;
+        height: 180px;
+        width: 700px;
+    }
+    .heading {
+        margin-left : 10px;
+        color: white;
+        font-size: 1rem;
+    }
+    .description {
+        color: rgb(189, 189, 189) !important;
+    }
+    .Stime {
+        color: rgb(179, 179, 179);
+        margin-left: 10px;
+    }
+
 }

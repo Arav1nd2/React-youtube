@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import {Link} from 'react-router-dom';
 import Slider from 'react-slick';
 import Loader from 'react-loader-spinner'
+import MediaQuery from 'react-responsive';
 
 
 
@@ -123,9 +124,16 @@ class Trending extends Component {
                             <div className="spinners">
                                  <Loader type = "Bars" color = "black" width = "150" height = "80" /> 
                             </div> :
-                            <Slider {...setting}>
-                                {trending}
-                            </Slider>
+                            <div>
+                                <MediaQuery minDeviceWidth = {768}>
+                                <Slider {...setting}>
+                                    {trending}
+                                </Slider>
+                                </MediaQuery>
+                                <MediaQuery maxDeviceWidth = {767}>
+                                    {trending}
+                                </MediaQuery>
+                            </div>
                         }
                     
                     <br/><br/>

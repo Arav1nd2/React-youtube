@@ -4,6 +4,7 @@ import {Card,Container,Media} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import * as moment from 'moment';
 import './result.css';
+import MediaQuery from "react-responsive";
 
 class Results extends Component {
     constructor(props) {
@@ -47,24 +48,25 @@ class Results extends Component {
                                 <Media left>
                                     <Media object src = {video.snippet.thumbnails.medium.url} className = "thumb"/>
                                 </Media>
-                                <Media body>
+                                <Media body className = "medBody">
                                     <Media heading className = "heading">
                                         {video.snippet.title}
                                     </Media>
                                     <span className="channel">{video.snippet.channelTitle}<b> .</b></span>
-                                    <span className="time">{time}</span>
+                                    <span className = "Stime">{time}</span>
+                                    <MediaQuery minDeviceWidth = {600}>
                                     <div className="description">{video.snippet.description.substr(0,100)+"..."}</div>
+                                    </MediaQuery>
                                 </Media>
                             </Media>
                         </Card>
                         </Link>
-                        <br/>
                     </div>
                 );
             } );
         return (
-            <div className = "resultsPage">
-                <Container>
+            <div >
+                <Container className = "resultsPage">
                     <br/>
                     <h6>Matching results : (25)</h6>
                     {displayData}      
