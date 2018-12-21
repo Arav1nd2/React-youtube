@@ -43,6 +43,7 @@ class Results extends Component {
                 return (
                     <div key = {i}>
                         <Link to = {path} className = "links">
+                        <MediaQuery minDeviceWidth = {600}>
                         <Card className = "Rescards">
                             <Media>
                                 <Media left>
@@ -60,6 +61,20 @@ class Results extends Component {
                                 </Media>
                             </Media>
                         </Card>
+                        </MediaQuery>
+                        <MediaQuery maxDeviceWidth = {599} >
+                            <Card className = "cards">
+                            <img src = {video.snippet.thumbnails.medium.url} alt = ""  />
+                            <h6 className = "title"><b>{video.snippet.title}</b></h6>
+                            <div className="channel">
+                                {video.snippet.channelTitle}
+                            </div>
+                            <div>
+                                <span className="time">{time}</span>
+                            </div>
+                            <br/>
+                            </Card>
+                        </MediaQuery>
                         </Link>
                     </div>
                 );

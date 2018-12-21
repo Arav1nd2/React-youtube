@@ -21,7 +21,9 @@ class Player extends Component {
         }
         this.handleClick = () => {
             if(this.state.id) {
-                data.push(this.state.id);
+                let newData = JSON.parse(localStorage.getItem('collections'));
+                newData.push(this.state.id);
+                localStorage.setItem('collections', JSON.stringify(newData));
                 console.log(data);
             }
         }

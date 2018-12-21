@@ -10,11 +10,14 @@ import Player from './components/player/Player';
 import About from './components/about/About';
 import Results from './components/results/results';
 
+
 //const API = "AIzaSyC08_3UH9FAAQAxREzc4-bKQVQ_IXHuNLc";
 
 class App extends Component {
   constructor(props) {
     super(props);
+    if(localStorage.getItem('collections') === undefined)
+      localStorage.setItem('collections',JSON.stringify([]));
     this.state = {
       search : "",
       sidebar : false
@@ -35,7 +38,9 @@ class App extends Component {
       });
     }
   }
-  
+  componentDidMount() {
+    
+  }
   render() {
     let data =  {
       search : this.state.search,
