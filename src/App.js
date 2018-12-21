@@ -18,11 +18,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     let Id = 27;
-    db.ref("users/" + Id).set({
-      collections : JSON.stringify([])
-    });
-    if(localStorage.getItem('collections') === undefined)
-      {localStorage.setItem('collections',JSON.stringify([]));}
+    
     this.state = {
       search : "",
       sidebar : false,
