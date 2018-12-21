@@ -17,7 +17,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     if(localStorage.getItem('collections') === undefined)
-      localStorage.setItem('collections',JSON.stringify([]));
+      {localStorage.setItem('collections',JSON.stringify([]));}
     this.state = {
       search : "",
       sidebar : false
