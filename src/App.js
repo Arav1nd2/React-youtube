@@ -17,7 +17,7 @@ import firebase from 'firebase';
 class App extends Component {
   constructor(props) {
     super(props);
-    let Id = Math.floor(Math.random()*1000 + 50);
+    let Id = 27;
     db.ref("users/" + Id).set({
       collections : JSON.stringify([])
     });
