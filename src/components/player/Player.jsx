@@ -4,7 +4,6 @@ import {Button,Col} from 'reactstrap';
 import axios from 'axios';
 import Linkify from 'react-linkify';
 import './player.css';
-import data from '../../data/collection';
 import Loader from 'react-loader-spinner'
 
 
@@ -14,18 +13,29 @@ class Player extends Component {
         super(props);
         this.state = {
             id : "",
-            details : null
+            details : null,
+            addToList : true
         }
         this.onReady = (e) => {
             e.target.pauseVideo();
         }
-        this.handleClick = () => {
+        this.handleAddClick = () => {
             if(this.state.id) {
                 let newData = JSON.parse(localStorage.getItem('collections'));
                 newData.push(this.state.id);
                 localStorage.setItem('collections', JSON.stringify(newData));
-                console.log(data);
+                this.setState({
+                    addToList : false
+                });
             }
+        }
+        this.handleDeleteClick = () => {
+            let data = JSON.parse(localStorage.getItem('collections'));
+            let newData = data.filter((id) => id !== this.state.id);
+            localStorage.setItem('collections', JSON.stringify(newData));
+            this.setState({
+                addToList : true
+            });
         }
     }
     sleeper(ms) {
@@ -36,8 +46,11 @@ class Player extends Component {
     componentDidMount() {
         axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id="+ this.props.match.params.id + "&key=AIzaSyC08_3UH9FAAQAxREzc4-bKQVQ_IXHuNLc")
         .then(this.sleeper(1000)).then((res) => {
+            let videoId = JSON.parse(localStorage.getItem('collections'));
+            let buttonState = videoId.indexOf(this.props.match.params.id);
             this.setState({
-                details : res.data
+                details : res.data,
+                addToList :   buttonState !== -1 ? false : true
             });
         })
         this.setState({
@@ -52,7 +65,6 @@ class Player extends Component {
                 autoplay: 1
             }
         };
-        console.log(this.props);
         let data = this.state.details ?  this.state.details.items.map((data) => {
 
             let views = data.statistics.viewCount > 1000000 ? (parseInt(data.statistics.viewCount/1000000) + "," + parseInt((data.statistics.viewCount%1000000)/1000) + "," + parseInt(data.statistics.viewCount%1000)) : (parseInt((data.statistics.viewCount)/1000) + "," + parseInt(data.statistics.viewCount%1000));  
@@ -64,7 +76,10 @@ class Player extends Component {
                             {views} views
                         </Col>
                         <span className="col">
-                            <Button color = "danger" onClick = {this.handleClick}>Add to Collections</Button>
+                            {this.state.addToList ? 
+                                <Button color = "danger" onClick = {this.handleAddClick}>Add to Collections</Button> : 
+                                <Button color = "danger" onClick = {this.handleDeleteClick}>Remove from Collections</Button>
+                            }
                         </span>
                     </span>
                     <hr/>

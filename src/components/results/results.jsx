@@ -33,7 +33,6 @@ class Results extends Component {
     }
     
     render() {
-        console.log(this.props);
         let i =0;
         let displayData = this.state.results.length === 0 ? "" : 
             this.state.results.map( video => {

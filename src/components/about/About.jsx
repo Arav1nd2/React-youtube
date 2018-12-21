@@ -5,7 +5,8 @@ export default function About() {
     <div className = "trends">
       <br/>
       <h4>About</h4>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel aut accusamus nostrum omnis veritatis quis, nesciunt perspiciatis placeat cumque voluptatem, dolore odio eligendi, ea excepturi illum voluptatibus assumenda sapiente amet!</p>
+      <p>This project is made using React JS and Youtube API. This app features a custom playlist/collection feature apart from regular Youtube features. Users can add and remove videos to the playlist.</p>
+      <p>This app is completely responsive and was made as a practice project.</p>
     </div>
   )
 }

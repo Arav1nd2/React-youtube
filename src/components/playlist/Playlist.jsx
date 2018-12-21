@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import {Container,Card,Badge} from 'reactstrap';
-import data from '../../data/collection';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import * as moment from 'moment';
 import Slider from 'react-slick';
-import Loader from 'react-loader-spinner'
 import MediaQuery from 'react-responsive';
 
 
@@ -60,36 +58,10 @@ class Playlist extends Component {
         centerMode : true,
         infinite : true,
         centrePadding : "70px",
-        slidesToShow : 2,
+        slidesToShow : this.state.collection.length <= 1 ? 1 : 2,
         speed : 500,
         autoplay : true,
-        autoplaySpeed : 4000,
-        responsive: [
-            {
-              breakpoint: 1024,
-              settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2,
-                infinite: true,
-                dots: true
-              }
-            },
-            {
-              breakpoint: 600,
-              settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                initialSlide: 1
-              }
-            },
-            {
-              breakpoint: 480,
-              settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-              }
-            }
-          ]
+        autoplaySpeed : 4000
     };
 
         let collection = this.state.collection.map((video) => {
@@ -101,7 +73,7 @@ class Playlist extends Component {
             this.convert_time(video.contentDetails.duration).forEach(time => {
                 duration = duration !== "" ? duration + ':' + time : (duration + time); 
             });
-            let link = "/" + video.id;
+            let link = "/play/" + video.id;
             return (
                 <div key = {video.id}>
                     <Link to = {link} className = "links" >
@@ -127,21 +99,16 @@ class Playlist extends Component {
                 <Container>
                     <br/>
                     <h4>Your Collections</h4>  
-                    {collection.length === 0 ?
-                        <div className="spinners">
-                            <Loader type = "Bars" color = "black" width = "150" height = "80" /> 
-                        </div> :
-                        <div>
+                         <div>
                             <MediaQuery minDeviceWidth = {768}>
                             <Slider {...setting}>
-                                {collection}
+                                {this.state.collection.length !== 0 ? collection : <h6>No videos added.... :(</h6>}
                             </Slider>
                             </MediaQuery>
                             <MediaQuery maxDeviceWidth = {767}>
-                                {collection}
+                                {this.state.collection.length !== 0 ? collection : <h6>No videos added.... :(</h6>}
                             </MediaQuery>
                         </div>
-                    }
                 </Container>
             </div>
         );

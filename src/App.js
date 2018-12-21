@@ -24,12 +24,13 @@ class App extends Component {
     }
     this.handleChange = (e) => {
       this.setState({
-        search : e.target.value
+        search : e.target.value,
       });
     }
     this.handleClick = () => {
       this.setState({
-        search : ""
+        search : "",
+        sidebar : !this.state.sidebar 
       });
     }
     this.handleHamberburger = () => { 
