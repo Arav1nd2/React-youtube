@@ -41,7 +41,8 @@ class Playlist extends Component {
     componentDidMount() {
         let col = [];
         let newData = JSON.parse(localStorage.getItem('collections'));
-        newData.forEach(id => {
+        if(newData.length !== 0)
+        { newData.forEach(id => {
             axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id="+id+"&key=AIzaSyC08_3UH9FAAQAxREzc4-bKQVQ_IXHuNLc")
             .then(this.sleeper(1000)).then(res => {
                  col.push(res.data.items[0]);
@@ -50,7 +51,7 @@ class Playlist extends Component {
                     collection : col
                 });
             })
-        });
+        });}
     }
     render() {            
         const setting = {
