@@ -9,18 +9,24 @@ import {BrowserRouter,Route} from 'react-router-dom';
 import Player from './components/player/Player';
 import About from './components/about/About';
 import Results from './components/results/results';
-
+import {db} from './components/firebase';
+import firebase from 'firebase';
 
 //const API = "AIzaSyC08_3UH9FAAQAxREzc4-bKQVQ_IXHuNLc";
 
 class App extends Component {
   constructor(props) {
     super(props);
+    let Id = Math.floor(Math.random()*1000 + 50);
+    db.ref("users/" + Id).set({
+      collections : JSON.stringify([])
+    });
     if(localStorage.getItem('collections') === undefined)
       {localStorage.setItem('collections',JSON.stringify([]));}
     this.state = {
       search : "",
-      sidebar : false
+      sidebar : false,
+      id : Id
     }
     this.handleChange = (e) => {
       this.setState({
@@ -58,8 +64,8 @@ class App extends Component {
         <Col md = {9} className = "centerPart">            
                   <div>
                       <Route exact path = '/' render = {(props) => this.state.search === "" ? <Trending/> : <Results {...props} val = {this.state.search} />} />
-                      <Route exact path = '/playlist' render = {(props) => this.state.search === "" ? <Playlist/> : <Results {...props} val = {this.state.search} />}/>
-                      <Route exact path = '/play/:id' render = {(props) =>  <Player {...props}/>  }/>
+                      <Route exact path = '/playlist' render = {(props) => this.state.search === "" ? <Playlist id = {this.state.id}/> : <Results {...props} val = {this.state.search} />}/>
+                      <Route exact path = '/play/:id' render = {(props) =>  <Player {...props} id = {this.state.id}/>  }/>
                       <Route exact path = "/about" render = {(props) => this.state.search === "" ? <About/> : <Results {...props} val = {this.state.search}/>}/>
                   </div>
         </Col>

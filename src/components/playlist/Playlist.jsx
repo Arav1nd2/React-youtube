@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import * as moment from 'moment';
 import Slider from 'react-slick';
 import MediaQuery from 'react-responsive';
-
+import {db} from '../firebase';
 
 
 
@@ -39,19 +39,22 @@ class Playlist extends Component {
       }
       
     componentDidMount() {
-        let col = [];
-        let newData = JSON.parse(localStorage.getItem('collections'));
-        if(newData !== null)
-        { newData.forEach(id => {
-            axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id="+id+"&key=AIzaSyC08_3UH9FAAQAxREzc4-bKQVQ_IXHuNLc")
-            .then(this.sleeper(1000)).then(res => {
-                 col.push(res.data.items[0]);
-            }).then(() => {
-                this.setState({
-                    collection : col
-                });
-            })
-        });}
+        let newData;
+        db.ref('users/'+this.props.id).once('value').then((snap) => {
+            newData = JSON.parse(snap.val().collections);
+            let col = [];
+                if(newData !== null)
+                { newData.forEach(id => {
+                    axios.get("https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id="+id+"&key=AIzaSyC08_3UH9FAAQAxREzc4-bKQVQ_IXHuNLc")
+                    .then(this.sleeper(1000)).then(res => {
+                        col.push(res.data.items[0]);
+                    }).then(() => {
+                        this.setState({
+                            collection : col
+                        });
+                    })
+                });}
+        });
     }
     render() {            
         const setting = {
